@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Корзина — СЫТЫЙ ПАПИК</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/menu-style-additions.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/phoneCopy.css">
+  <style>
+    /* Стили для модального окна */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, #1a1a1c 0%, #121214 100%);
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 159, 28, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--muted);
+      font-size: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .order-summary {
+      margin-bottom: 24px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .order-item-name {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .order-item-details {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .order-item-price {
+      color: var(--accent);
+      font-weight: 700;
+      white-space: nowrap;
+      margin-left: 16px;
+    }
+
+    .order-total {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid rgba(255, 159, 28, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-total-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .order-total-amount {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .contact-info {
+      background: rgba(255, 159, 28, 0.08);
+      border: 1px solid rgba(255, 159, 28, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .contact-info h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .contact-info p {
+      margin: 8px 0;
+      color: var(--text);
+    }
+
+    .phone-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .phone-number svg {
+      color: var(--accent);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-call {
+      flex: 1;
+      padding: 16px 24px;
+      background: var(--accent);
+      color: #111;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-call:hover {
+      background: #d96810;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 159, 28, 0.4);
+    }
+
+    .btn-copy {
+      flex: 1;
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-copy.copied {
+      background: rgba(76, 175, 80, 0.2);
+      border-color: rgba(76, 175, 80, 0.4);
+      color: #4caf50;
+    }
+
+    .help-text {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .modal-content {
+        border-radius: 16px;
+        max-height: 95vh;
+      }
+
+      .modal-header {
+        padding: 20px 16px 16px;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .order-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .order-item-price {
+        margin-left: 0;
+        margin-top: 4px;
+      }
+
+      .phone-number {
+        font-size: 18px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<div id="copyToast" class="copy-toast">
+  Номер скопирован
+</div>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo-placeholder.png" class="logo-img" alt="СЫТЫЙ ПАПИК"></a>
+      </div>
+      <nav class="nav" id="nav4">
+        <a class="nav-link" href="index.html">Главная</a>
+        <a class="nav-link" href="menu.html">Меню</a>
+        <a class="nav-link" href="delivery.html">Доставка / Контакты</a>
+        <a class="nav-link active" href="cart.html">Корзина</a>
+      </nav>
+      <button class="burger" id="burger4" aria-label="Открыть меню">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Корзина</h1>
+
+    <div id="cartList"></div>
+
+    <h2 id="cartTotal"></h2>
+
+    <div class="cart-actions">
+      <button id="clearCart" class="btn-secondary">Очистить корзину</button>
+      <button id="checkout" class="btn-add">Позвонить и оформить</button>
+    </div>
+  </main>
+
+  <!-- Модальное окно -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Ваш заказ</h2>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="order-summary" id="orderSummary">
+          <!-- Динамически заполняется -->
+        </div>
+
+        <div class="contact-info">
+          <h3>☎ Позвоните для оформления заказа:</h3>
+          <a href="tel:+79494546304" class="phone-number" style="text-decoration: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+            +7 (949) 454-63-04
+          </a>
+          <a href="tel:+79497374186" class="phone-number" style="text-decoration: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+            +7 (949) 737-41-86
+          </a>
+          <p style="margin-top: 12px; font-size: 14px;">Рабочие часы: 08:00 — 17:00</p>
+        </div>
+
+        <div class="modal-actions">
+          <a href="tel:+79494546304" class="btn-call btn-call-mobile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+            Позвонить
+          </a>
+          <button class="btn-copy" onclick="copyOrder()">
+            Скопировать заказ
+          </button>
+        </div>
+
+        <style>
+          .btn-call-mobile {
+            display: flex;
+          }
+          
+          @media (min-width: 769px) {
+            .btn-call-mobile {
+              display: none;
+            }
+          }
+        </style>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>СЫТЫЙ ПАПИК</strong>
+        <p>Адрес: <span class="placeholder">Мариуполь, Проспект Металлургов, 64</span></p>
+          <p>
+  Телефон:
+  <span class="phone-copy" data-phone="+79494546304">
+    +7 (949) 454-63-04
+  </span>
+</p>
+
+<p>
+  Доп. Телефон:
+  <span class="phone-copy" data-phone="+79497374186" href="#">
+    +7 (949) 737-41-86
+  </span>
+</p>
+      </div>
+      <div>
+        <p>Соцсети / мессенджеры:</p>
+       <ul class="socials">
+          <li><a href="https://www.instagram.com/sitipapik/" class="placeholder-link">Instagram</a></li>
+          <li><a href="https://t.me/sitipapik" class="placeholder-link">Telegram</a></li>
+          <li><a href="https://vk.com/sitipapik" class="placeholder-link">Вконтакте</a></li>
+          <li><a href="https://ok.ru/group/70000040995384" class="placeholder-link">Одноклассники</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script>
+    let currentCart = [];
+
+    function renderCart() {
+      const list = document.getElementById('cartList');
+      const totalElem = document.getElementById('cartTotal');
+      const cart = getCart();
+      currentCart = cart;
+      
+      if (!cart.length) {
+        list.innerHTML = '<p style="text-align: center; padding: 40px 0; color: #999;">Корзина пуста. <a href="menu.html" style="color: #e74c3c;">Перейти в меню</a></p>';
+        totalElem.textContent = '';
+        return;
+      }
+      
+      let html = '';
+      let total = 0;
+      
+      cart.forEach((it, i) => {
+        total += (it.price || 0) * it.qty;
+        html += `
+          <div class="cart-row">
+            <div style="display: flex; gap: 15px; align-items: center;">
+              <img src="${it.img || 'images/placeholder-1.jpg'}" 
+                   alt="${it.title}" 
+                   style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div>
+                <strong>${it.title}</strong>
+                <div style="color: var(--muted); margin-top: 5px;">${it.price} ₽ × ${it.qty} = ${it.price * it.qty} ₽</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <button onclick="changeQty(${i},-1)" class="btn-secondary" style="padding: 5px 12px;">−</button>
+              <span style="min-width: 30px; text-align: center; font-weight: bold;">${it.qty}</span>
+              <button onclick="changeQty(${i},1)" class="btn-secondary" style="padding: 5px 12px;">+</button>
+              <button onclick="removeItem(${i})" class="btn-secondary" style="padding: 5px 12px; margin-left: 10px;">🗑️</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      list.innerHTML = html;
+      totalElem.textContent = 'Итого: ' + total + ' ₽';
+    }
+
+    function changeQty(i, delta) {
+      const cart = getCart();
+      cart[i].qty = Math.max(1, (cart[i].qty || 1) + delta);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function removeItem(i) {
+      const cart = getCart();
+      cart.splice(i, 1);
+      saveCart(cart);
+      renderCart();
+    }
+
+    document.getElementById('clearCart')?.addEventListener('click', () => {
+      if (confirm('Очистить корзину?')) {
+        clearCart();
+        renderCart();
+      }
+    });
+
+    document.getElementById('checkout')?.addEventListener('click', () => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert('Корзина пуста!');
+        return;
+      }
+      showOrderModal();
+    });
+
+    function showOrderModal() {
+      const cart = getCart();
+      let total = 0;
+      
+      let orderHTML = '';
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        
+        orderHTML += `
+          <div class="order-item">
+            <div>
+              <div class="order-item-name">${item.title}</div>
+              <div class="order-item-details">${item.price} ₽ × ${item.qty} шт</div>
+            </div>
+            <div class="order-item-price">${itemTotal} ₽</div>
+          </div>
+        `;
+      });
+      
+      orderHTML += `
+        <div class="order-total">
+          <span class="order-total-label">Итого:</span>
+          <span class="order-total-amount">${total} ₽</span>
+        </div>
+      `;
+      
+      document.getElementById('orderSummary').innerHTML = orderHTML;
+      document.getElementById('orderModal').classList.add('active');
+      
+      // Блокируем прокрутку страницы
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function copyOrder() {
+      const cart = getCart();
+      let text = '📋 МОЙ ЗАКАЗ:\n\n';
+      let total = 0;
+      
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        text += `• ${item.title}\n  ${item.price} ₽ × ${item.qty} шт = ${itemTotal} ₽\n\n`;
+      });
+      
+      text += `━━━━━━━━━━━━━━━━\n💰 ИТОГО: ${total} ₽\n\n`;
+      text += `📞 Жду звонка для подтверждения заказа!`;
+      
+      // Копируем в буфер обмена
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Скопировано';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        alert('Не удалось скопировать. Попробуйте еще раз.');
+      });
+    }
+
+    // Закрытие по клику вне модального окна
+    document.getElementById('orderModal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'orderModal') {
+        closeModal();
+      }
+    });
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    renderCart();
+  </script>
+  <script src="js/script.js"></script>
+  <script>
+    // Инициализация бургер-меню для страницы корзины
+    document.addEventListener('DOMContentLoaded', function() {
+      const burger = document.getElementById('burger4');
+      const nav = document.getElementById('nav4');
+      
+      if (burger && nav) {
+        burger.addEventListener('click', () => {
+          nav.classList.toggle('open');
+          burger.setAttribute('aria-expanded', nav.classList.contains('open'));
+        });
+      }
+    });
+  </script>
+  <script src="js/phoneCopy.js"></script>
+</body>
+</html>

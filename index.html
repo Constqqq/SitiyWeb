@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>СЫТЫЙ ПАПИК — Главная</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/phoneCopy.css">
+  <style>
+    /* Стили для фиксированного хедера */
+    .site-header {
+      background: rgba(11, 11, 12, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Отступ для контента под фиксированным хедером */
+    body {
+      padding-top: 80px;
+    }
+
+    .glow-on-hover {
+      width: 220px;
+      height: 50px;
+      border: none;
+      outline: none;
+      color: #fff;
+      background: #111;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 10px;
+    }
+    .glow-on-hover:before {
+      content: '';
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      position: absolute;
+      top: -2px;
+      left:-2px;
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 20s linear infinite;
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
+      border-radius: 10px;
+      
+    }
+    .glow-on-hover:active {
+      color: #000
+    }
+    .glow-on-hover:active:after {
+      background: transparent;
+    }
+    .glow-on-hover:hover:before {
+      opacity: 1;
+    }
+    .glow-on-hover:after {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+    }
+    @keyframes glowing {
+      0% { background-position: 0 0; }
+      50% { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+    
+  </style>
+</head>
+<div id="copyToast" class="copy-toast">
+  Номер скопирован
+</div>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo-placeholder.png" alt="СЫТЫЙ ПАПИК" class="logo-img"></a>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link active">Главная</a>
+        <a href="menu.html" class="nav-link">Меню</a>
+        <a href="delivery.html" class="nav-link">Доставка / Контакты</a>
+        <a href="cart.html" class="nav-link">Корзина</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Открыть меню">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>СЫТЫЙ ПАПИК</h1>
+        <p class="lead">Вкусная шаверма и быстрые комбо-наборы. Честные порции — счастливые клиенты.</p>
+        <div class="hero-actions">
+          <a class="btn" href="menu.html">Открыть меню</a>
+          <a class="btn btn-ghost" href="delivery.html">Доставка и контакты</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery container">
+      <h2>Популярные блюда</h2>
+      <div class="cards-grid" id="popularItems">
+        <!-- Динамически загружается из menu-cards.js -->
+      </div>
+    </section>
+
+    <section class="about container">
+      <h2>Почему выбирают нас</h2>
+      <div class="features">
+        
+        <a class="feature" href ="menu.html" >
+          <h3>Сочное мясо</h3>
+          <p>Только проверенные поставщики и свежие ингредиенты.</p>
+        </a>
+        <a class="feature" href ="delivery.html">
+          <h3>Быстрая доставка</h3>
+          <p>Мы готовим и отправляем заказы максимально оперативно.</p>
+        </a>
+        <a class="feature" href ="menu.html">
+          <h3>Доступные цены</h3>
+          <p>Честная цена и частые акции для постоянных клиентов.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>СЫТЫЙ ПАПИК</strong>
+        <p>Адрес: <span class="placeholder">Мариуполь, Проспект Металлургов, 64</span></p>
+          <p>
+  Телефон:
+  <span class="phone-copy" data-phone="+79494546304">
+    +7 (949) 454-63-04
+  </span>
+</p>
+
+<p>
+  Доп. Телефон:
+  <span class="phone-copy" data-phone="+79497374186" href="#">
+    +7 (949) 737-41-86
+  </span>
+</p>
+
+      </div>
+      <div>
+        <p>Соцсети / мессенджеры:</p>
+        <ul class="socials">
+          <li><a href="https://www.instagram.com/sitipapik/" class="placeholder-link">Instagram</a></li>
+          <li><a href="https://t.me/sitipapik" class="placeholder-link">Telegram</a></li>
+          <li><a href="https://vk.com/sitipapik" class="placeholder-link">Вконтакте</a></li>
+          <li><a href="https://ok.ru/group/70000040995384" class="placeholder-link">Одноклассники</a></li>
+        </ul>
+        
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/menu-cards.js"></script>
+  <script>
+    // Загружаем популярные товары на главную страницу
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('popularItems');
+      
+      // Показываем первые 4 товара как популярные
+      const popularItems = MENU_ITEMS.slice(0, 4);
+      
+      container.innerHTML = popularItems.map(item => {
+        // Определяем отображение цены
+        let priceDisplay = '';
+        if (item.sizes && item.sizes.length > 1) {
+          const prices = item.sizes.map(s => s.price);
+          priceDisplay = `${Math.min(...prices)}–${Math.max(...prices)} ₽`;
+        } else if (item.sizes && item.sizes.length === 1) {
+          priceDisplay = `${item.sizes[0].price} ₽`;
+        } else {
+          priceDisplay = `${item.price} ₽`;
+        }
+        
+        return `
+          <article class="card">
+            <a href="product.html?id=${item.id}">
+              <img src="${item.img}" alt="${item.title}" />
+            </a>
+            <div class="card-body">
+              <h4>${item.title}</h4>
+              <p class="price">${priceDisplay}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+    });
+  </script>
+  <script src="js/script.js"></script>
+  <script src="js/phoneCopy.js"></script>
+</body>
+</html>
