@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title id="pageTitle">Товар — СЫТЫЙ ПАПИК</title>
+  <link rel="stylesheet" href="css/styles.css?v=10">
+  <link rel="stylesheet" href="css/phoneCopy.css?v=10">
+  <link rel="stylesheet" href="css/sauce.css?v=10">
+   <link rel="stylesheet" href="css/drink.css?v=10">
+</head>
+<div id="copyToast" class="copy-toast">
+  Номер скопирован
+</div>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo-placeholder.png" alt="СЫТЫЙ ПАПИК" class="logo-img"></a>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="menu.html" class="nav-link">Меню</a>
+        <a href="delivery.html" class="nav-link">Доставка / Контакты</a>
+        <a href="cart.html" class="nav-link">Корзина</a>
+        <a href="promotions.html" class="nav-link">Акции</a>
+
+      </nav>
+      <button class="burger" id="burger" aria-label="Открыть меню">☰</button>
+    </div>
+  </header>
+
+  <main id="productMain">
+    <!-- Контент загружается через JS -->
+  </main>
+
+  <!-- Модальное окно для видео -->
+  <div id="videoModal" class="video-modal">
+    <div class="video-modal-content">
+      <button class="video-modal-close" onclick="closeVideoModal()">×</button>
+      <video id="modalVideo" controls playsinline>
+        <source id="modalVideoSource" src="" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение видео.
+      </video>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>СЫТЫЙ ПАПИК</strong>
+        <p>Адрес: <span class="placeholder">Мариуполь, Проспект Металлургов, 64</span></p>
+         <p>
+  Телефон:
+  <span class="phone-copy" data-phone="+79494546304">
+    +7 (949) 454-63-04
+  </span>
+</p>
+
+
+      </div>
+      <div>
+        <p>Соцсети / мессенджеры:</p>
+        <ul class="socials">
+          <li><a href="https://www.instagram.com/sitipapik/" class="placeholder-link">Instagram</a></li>
+          <li><a href="https://t.me/sitipapik" class="placeholder-link">Telegram</a></li>
+          <li><a href="https://vk.com/sitipapik" class="placeholder-link">Вконтакте</a></li>
+          <li><a href="https://ok.ru/group/70000040995384" class="placeholder-link">Одноклассники</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/menu-cards.js?v=10"></script>
+  <script src="js/cart.js?v=10"></script>
+  <script>
+    // Получаем ID товара из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    // Словарь категорий для отображения
+    const categoryNames = {
+      'shawarma': 'Шаурма',
+      'bludo': 'Блюда',
+      'panini': 'Панини',
+      'drinks': 'Напитки',
+      'noodles': 'Лапша',
+      'dinner': 'Обеды',
+      'burgers': 'Бургеры',
+      'pizza': 'Пицца',
+      'soups': 'Супы',
+      'snacks': 'Закуски'
+    };
+
+    // Находим товар в массиве
+    const product = MENU_ITEMS.find(item => item.id === productId);
+
+    if (product) {
+      // Обновляем title страницы
+      document.getElementById('pageTitle').textContent = `${product.title} — СЫТЫЙ ПАПИК`;
+
+      // Формируем HTML товара
+      const categoryLabel = categoryNames[product.category] || 'Другое';
+      
+      // Определяем, есть ли размеры
+      let sizeSelector = '';
+      let selectedPrice = product.price;
+      let selectedSize = null;
+      
+      if (product.sizes && product.sizes.length > 1) {
+        selectedPrice = product.sizes[0].price;
+        selectedSize = product.sizes[0].name;
+        
+        sizeSelector = `
+          <div class="product-sizes">
+            <label>Выберите размер:</label>
+            <div class="size-buttons">
+              ${product.sizes.map((size, index) => `
+                <button class="size-button ${index === 0 ? 'active' : ''}" 
+                        data-price="${size.price}" 
+                        data-size="${size.name}"
+                        onclick="selectSize(this, ${size.price}, '${size.name}')">
+                  ${size.name} — ${size.price} ₽
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (product.sizes && product.sizes.length === 1) {
+        selectedPrice = product.sizes[0].price;
+        selectedSize = product.sizes[0].name;
+      }
+
+      // --- ЛОГИКА СТАРОЙ ЦЕНЫ ---
+      const oldPriceHtml = product.noneDiscount 
+        ? `<span class="price-old-detail">${product.noneDiscount} ₽</span>` 
+        : '';
+
+      // --- ЛОГИКА ВИДЕО (кнопка) ---
+      const videoButtonHtml = product.video 
+        ? `<button class="btn-video" onclick="openVideoModal()">
+             <svg viewBox="0 0 24 24" fill="currentColor">
+               <path d="M8 5v14l11-7z"/>
+             </svg>
+             Посмотреть видео
+           </button>` 
+        : '';
+      
+      document.getElementById('productMain').innerHTML = `
+        <div class="product-container">
+          <div class="product-layout">
+            <div class="product-image">
+              <img src="${product.img}" alt="${product.title}">
+              <div class="image-note">
+    Изображения, представленные на страницах товара, носят исключительно ознакомительный характер и служат для демонстрации концепции продукта. Фактический внешний вид изделия может варьироваться.
+  </div>
+            </div>
+            <div class="product-info">
+              <a href="menu.html?category=${product.category}" class="product-category">${categoryLabel}</a>
+
+              <h1>${product.title}</h1>
+              <p class="product-desc">${product.desc}</p>
+              ${sizeSelector}
+              
+              <div class="price-container">
+                ${oldPriceHtml}
+                <div class="product-price" id="currentPrice">${selectedPrice} ₽</div>
+              </div>
+
+              <div class="product-actions">
+  <a href="menu.html" class="btn-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 0L0 8l8 8V0z"/>
+    </svg>
+    Назад к меню
+  </a>
+
+  <button class="btn-add-to-cart" onclick="addProductToCart()">
+    Добавить в корзину
+  </button>
+
+  ${videoButtonHtml}
+</div>
+
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Сохраняем данные для добавления в корзину
+      window.currentProduct = {
+        ...product,
+        selectedPrice: selectedPrice,
+        selectedSize: selectedSize
+      };
+    }
+    else {
+      // Товар не найден
+      document.getElementById('productMain').innerHTML = `
+        <div class="not-found">
+          <h1>404</h1>
+          <p>Товар не найден</p>
+          <a href="menu.html" class="btn-back">Вернуться в меню</a>
+        </div>
+      `;
+    }
+
+    // Функция выбора размера
+    function selectSize(button, price, sizeName) {
+      // Обновляем активную кнопку
+      document.querySelectorAll('.size-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+      
+      // Обновляем цену
+      document.getElementById('currentPrice').textContent = price + ' ₽';
+      
+      // Сохраняем выбранные данные
+      window.currentProduct.selectedPrice = price;
+      window.currentProduct.selectedSize = sizeName;
+    }
+
+    // Функция добавления в корзину
+    function addProductToCart() {
+      if (!product) return;
+      
+      addToCart(
+        window.currentProduct.id, 
+        window.currentProduct.title, 
+        window.currentProduct.selectedPrice, 
+        window.currentProduct.img,
+        window.currentProduct.selectedSize
+      );
+
+      // Предлагаем добавки только для шаурмы
+      if (product.isShawerma) {
+        maybeOfferShawerma(product.id);
+      }
+
+      const btn = document.querySelector('.btn-add-to-cart');
+      const originalText = btn.textContent;
+      
+      btn.textContent = '✓ Добавлено в корзину';
+      btn.style.background = '#28a745';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 1500);
+    }
+
+    // Функции для модального окна видео
+    function openVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const video = document.getElementById('modalVideo');
+      const source = document.getElementById('modalVideoSource');
+      
+      source.src = product.video;
+      video.load();
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const video = document.getElementById('modalVideo');
+      
+      video.pause();
+      video.currentTime = 0;
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Закрытие по клику вне видео
+    document.getElementById('videoModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVideoModal();
+      }
+    });
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeVideoModal();
+      }
+    });
+  </script>
+  <script src="js/script.js?v=10"></script>
+  <script src="js/phoneCopy.js?v=10"></script>
+  
+</body>
+</html>

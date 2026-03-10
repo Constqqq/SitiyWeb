@@ -1,0 +1,134 @@
+/* ================= СЕКЦИЯ ОТЗЫВОВ ================= */
+
+.reviews-section {
+  margin: 60px auto;
+  padding: 0;
+}
+
+.reviews-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #1a1a1a;
+}
+
+.reviews-carousel-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.reviews-carousel {
+  display: flex;
+  gap: 20px;
+  animation: scrollCarousel 20s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollCarousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.333% - 6.667px));
+  }
+}
+
+/* Пауза при наведении */
+.reviews-carousel-container:hover .reviews-carousel {
+  animation-play-state: paused;
+}
+
+.review-card {
+  flex-shrink: 0;
+  width: 684px;
+  height: 219px;
+  background: #18181a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.review-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Адаптив для планшета */
+@media (max-width: 1024px) {
+  .review-card {
+    width: 550px;
+    height: 175px;
+  }
+
+  .reviews-carousel {
+    gap: 15px;
+  }
+
+  @keyframes scrollCarousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% - 15px));
+    }
+  }
+
+  .reviews-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+  .reviews-section {
+    margin: 40px auto;
+  }
+
+  .reviews-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+  }
+
+  .review-card {
+    width: 400px;
+    height: 128px;
+  }
+
+  .reviews-carousel {
+    gap: 12px;
+  }
+
+  @keyframes scrollCarousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% - 12px));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .review-card {
+    width: 300px;
+    height: 96px;
+  }
+
+  .reviews-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}

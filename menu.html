@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>СЫТЫЙ ПАПИК — Меню</title>
+  <link rel="stylesheet" href="css/styles.css?v=10">
+  <link rel="stylesheet" href="css/menu-style-additions.css?v=10">
+  <link rel="stylesheet" href="css/phoneCopy.css?v=10">
+  <link rel="stylesheet" href="css/hit.css?v=10">
+  <link rel="stylesheet" href="css/sauce.css?v=10">
+  <link rel="stylesheet" href="css/cartButton.css?v=10">
+   <link rel="stylesheet" href="css/drink.css?v=10">
+  <style></style>
+</head>
+<div id="copyToast" class="copy-toast">
+  Номер скопирован
+</div>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo-placeholder.png" alt="СЫТЫЙ ПАПИК" class="logo-img"></a>
+      </div>
+      <nav class="nav" id="nav2">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="menu.html" class="nav-link active">Меню</a>
+        <a href="delivery.html" class="nav-link">Доставка / Контакты</a>
+        <a href="cart.html" class="nav-link">Корзина</a>
+        <a href="promotions.html" class="nav-link">Акции</a>
+
+      </nav>
+      <button class="burger" id="burger2" aria-label="Открыть меню">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="menu-section">
+      <h1 class="menu-title">Меню</h1>
+      <p class="muted">Свежие, тщательно приготовленные блюда.</p>
+
+      <div class="menu-filters">
+        <button class="filter active" data-cat="all">Все</button>
+        <button class="filter" data-cat="shawarma">Шаурма</button>
+        <button class="filter" data-cat="noodles">Лапша ВОК</button>
+        <button class="filter" data-cat="dinner">Обеды</button>
+        <button class="filter" data-cat="pizza">Пицца</button>
+        <button class="filter" data-cat="burgers">Бургеры</button>
+        <button class="filter" data-cat="snacks">Закуски</button>
+        <button class="filter" data-cat="soups">Горячие Супы</button>
+        <button class="filter" data-cat="drinks">Напитки</button>
+      </div>
+
+      <div class="menu-grid" aria-live="polite">
+        <!-- Динамически загружается из menu-cards.js -->
+      </div>
+    </section>
+  </main>
+ <a href="cart.html" class="floating-cart-btn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="9" cy="21" r="1"/>
+      <circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <span class="floating-cart-text">Корзина</span>
+    <span class="floating-cart-badge"></span>
+  </a>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>СЫТЫЙ ПАПИК</strong>
+        <p>Адрес: <span class="placeholder">Мариуполь, Проспект Металлургов, 64</span></p>
+          <p>
+  Телефон:
+  <span class="phone-copy" data-phone="+79494546304">
+    +7 (949) 454-63-04
+  </span>
+</p>
+
+
+      </div>
+      <div>
+        <p>Соцсети / мессенджеры:</p>
+        <ul class="socials">
+          <li><a href="https://www.instagram.com/sitipapik/" class="placeholder-link">Instagram</a></li>
+          <li><a href="https://t.me/sitipapik" class="placeholder-link">Telegram</a></li>
+          <li><a href="https://vk.com/sitipapik" class="placeholder-link">Вконтакте</a></li>
+          <li><a href="https://ok.ru/group/70000040995384" class="placeholder-link">Одноклассники</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script src="js/menu-cards.js?v=10"></script>
+  <script src="js/script.js?v=10"></script>
+  <script src="js/phoneCopy.js?v=10"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryFromUrl = urlParams.get('category');
+    
+    if (categoryFromUrl) {
+      setTimeout(() => {
+        const filterButton = document.querySelector(`.filter[data-cat="${categoryFromUrl}"]`);
+        
+        if (filterButton) {
+          filterButton.click();
+          
+          setTimeout(() => {
+            const menuGrid = document.querySelector('.menu-grid');
+            // if (menuGrid) {
+            //   menuGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // }
+          }, 100);
+        }
+      }, 50);
+    }
+  });
+</script>
+</body>
+</html>

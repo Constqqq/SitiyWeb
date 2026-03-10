@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>СЫТЫЙ ПАПИК — Акции</title>
+
+  <link rel="stylesheet" href="css/styles.css?v=10">
+  <link rel="stylesheet" href="css/phoneCopy.css?v=10">
+  <style>
+    /* ====== PROMOTIONS PAGE ====== */
+
+    .promo-section h1 {
+      margin-bottom: 10px;
+    }
+
+    .promo-section .subtitle {
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .promo-card-custom {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      transition: all .25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .promo-card-custom:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,159,28,0.25);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+    }
+
+    .promo-card-custom h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .promo-card-custom ul {
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .promo-card-custom .promo-highlight {
+      display: block;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .promo-card-custom .promo-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+
+    /* Широкая карточка на всю строку */
+    .promo-card-wide {
+      grid-column: 1 / -1;
+    }
+
+    .promo-card-wide-inner {
+      display: flex;
+      gap: 40px;
+    }
+
+    .promo-card-wide-inner .promo-half {
+      flex: 1;
+    }
+
+    .promo-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.08);
+      align-self: stretch;
+    }
+
+    .promo-card-wide h2 {
+      color: var(--accent);
+      margin: 0 0 20px;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    /* ====== MOBILE ADAPTATION ====== */
+    @media (max-width: 768px) {
+      .promo-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .promo-card-custom {
+        padding: 20px;
+      }
+
+      .promo-card-custom h3 {
+        font-size: 18px;
+      }
+
+      .promo-card-wide-inner {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .promo-divider {
+        width: 100%;
+        height: 1px;
+      }
+    }
+  </style>
+</head>
+<div id="copyToast" class="copy-toast">
+  Номер скопирован
+</div>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/logo-placeholder.png" alt="СЫТЫЙ ПАПИК" class="logo-img">
+      </a>
+    </div>
+
+    <nav class="nav" id="nav5">
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="menu.html" class="nav-link">Меню</a>
+      <a href="delivery.html" class="nav-link">Доставка / Контакты</a>
+      <a href="cart.html" class="nav-link">Корзина</a>
+      <a href="promotions.html" class="nav-link active">Акции</a>
+      
+    </nav>
+
+    <button class="burger" id="burger5" aria-label="Открыть меню">☰</button>
+  </div>
+</header>
+
+<main class="container promo-section">
+  <h1>Наши акции </h1>
+  <p class="subtitle">Мы ценим наших гостей и делаем вкусную еду ещё доступнее</p>
+
+  <div class="promo-grid">
+
+    <div class="promo-card-custom promo-card-wide">
+      <h2>🔥 Сытый Март — специальные предложения</h2>
+      <div class="promo-card-wide-inner">
+        <div class="promo-half">
+          <h3>📅 Счастливые часы</h3>
+          <span class="promo-highlight">СКИДКА 10% на ВЕСЬ ЗАКАЗ! 🎁</span>
+          <p class="promo-subtitle">
+            Время: <strong>9:00 – 11:00</strong> и <strong>15:00 – 17:00</strong>
+          </p>
+          <p class="promo-subtitle">
+            Работает при заказе через сайт или на месте
+          </p>
+        </div>
+        <div class="promo-divider"></div>
+        <div class="promo-half">
+          <h3>🍕 Приятный бонус</h3>
+          <span class="promo-highlight">МИНИ ПИЦЦА ПЕППЕРОНИ в подарок! 🎉</span>
+          <p class="promo-subtitle">
+            На сайте: заказ от <strong>2000 руб.</strong>
+          </p>
+          <p class="promo-subtitle">
+            На месте: заказ от <strong>1500 руб.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-card-custom">
+      <div>
+        <h3>Скидка 10% на всё меню</h3>
+        <p class="muted">
+          Постоянная акция для гостей, которые учатся, служат или уже на заслуженном отдыхе.
+        </p>
+
+        <h4 style="margin-top:18px;">Кто получает скидку:</h4>
+        <ul>
+          <li>Школьники</li>
+          <li>Студенты</li>
+          <li>Военнослужащие</li>
+          <li>Сотрудники полиции</li>
+          <li>Пенсионеры</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="promo-card-custom">
+      <div>
+        <h3>Условия получения скидки</h3>
+        <ul>
+          <li>Скидка действует при предъявлении подтверждающего документа</li>
+          <li>Распространяется на всё основное меню</li>
+          <li>Не суммируется с другими акциями</li>
+          <li>Работает при заказе в заведении и на самовывоз</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>СЫТЫЙ ПАПИК</strong>
+        <p>Адрес: <span class="placeholder">Мариуполь, Проспект Металлургов, 64</span></p>
+          <p>
+  Телефон:
+  <span class="phone-copy" data-phone="+79494546304">
+    +7 (949) 454-63-04
+  </span>
+</p>
+
+
+      </div>
+      <div>
+        <p>Соцсети / мессенджеры:</p>
+       <ul class="socials">
+          <li><a href="https://www.instagram.com/sitipapik/" class="placeholder-link">Instagram</a></li>
+          <li><a href="https://t.me/sitipapik" class="placeholder-link">Telegram</a></li>
+          <li><a href="https://vk.com/sitipapik" class="placeholder-link">Вконтакте</a></li>
+          <li><a href="https://ok.ru/group/70000040995384" class="placeholder-link">Одноклассники</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</footer>
+
+<script src="js/script.js?v=10"></script>
+<script src="js/phoneCopy.js?v=10"></script>
+</body>
+</html>

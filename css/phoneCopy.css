@@ -1,0 +1,107 @@
+/* ==================================================
+   PHONE COPY (MINIMAL, PREMIUM)
+   ================================================== */
+
+.phone-copy {
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+/* hover — ТОЛЬКО курсор, без анимаций */
+.phone-copy:hover {
+  cursor: pointer;
+}
+
+/* ==================================================
+   PRESS ANIMATION (NO GLOW)
+   ================================================== */
+
+@keyframes copyPress {
+  0% {
+    transform: scale(1);
+    background: transparent;
+  }
+
+  40% {
+    transform: scale(0.94);
+    background: rgba(255, 159, 28, 0.08);
+  }
+
+  70% {
+    transform: scale(1.01);
+    background: rgba(255, 159, 28, 0.05);
+  }
+
+  100% {
+    transform: scale(1);
+    background: transparent;
+  }
+}
+
+.phone-copy.copied {
+  animation: copyPress 0.28s ease;
+}
+
+
+
+
+.copy-toast {
+  position: fixed;
+  top: 192px; /* 80px хедер + небольшой зазор */
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 159, 28, 0.35);
+  color: var(--text);
+  padding: 12px 22px;
+  border-radius: 12px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.7),
+    0 0 18px rgba(255,159,28,0.35);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s ease;
+  z-index: 1500; /* ниже модалок, выше контента */
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* иконка без акцента */
+.copy-toast::before {
+  content: "✔";
+  margin-right: 8px;
+  color: var(--muted);
+}
+
+
+
+@media (max-width: 900px) {
+  .copy-toast {
+    top: 78px;
+  }
+}
+.feature {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Чтобы ссылка вела себя как карточка */
+}

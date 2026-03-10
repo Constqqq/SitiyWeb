@@ -1,0 +1,115 @@
+
+/* ===========================
+   HIT BADGE (Плашка ХИТ)
+   =========================== */
+.card-media {
+  position: relative;
+}
+
+.hit-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+  z-index: 10;
+  animation: hitPulse 2s ease-in-out infinite;
+}
+
+@keyframes hitPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.8);
+  }
+}
+
+.menu-card:hover .hit-badge {
+  animation: none;
+  box-shadow: 0 8px 24px rgba(255, 68, 68, 1);
+}
+/* ===========================
+   HIT PRODUCTS SCROLL (Главная страница)
+   =========================== */
+.hit-products-scroll {
+  position: relative;
+  margin-top: 32px;
+}
+
+.cards-grid-scroll {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 12px;
+  padding-right: 8px;
+  
+  /* Стилизованный скроллбар */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 159, 28, 0.6) transparent;
+}
+
+.cards-grid-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cards-grid-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.cards-grid-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 159, 28, 0.6);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.3s ease;
+}
+
+.cards-grid-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  background-clip: padding-box;
+}
+
+/* Карточки в горизонтальном скролле */
+.cards-grid-scroll .card {
+  min-width: 240px;
+  flex-shrink: 0;
+}
+
+/* Маленькая плашка ХИТ для главной страницы */
+.hit-badge-small {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+  z-index: 10;
+}
+
+.card a {
+  position: relative;
+  display: block;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 600px) {
+  .cards-grid-scroll .card {
+    min-width: 200px;
+  }
+}

@@ -1,0 +1,94 @@
+/* ===========================
+   FLOATING CART BUTTON
+   =========================== */
+.floating-cart-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--accent);
+  color: #111;
+  padding: 16px 24px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 8px 32px rgba(255, 159, 28, 0.4);
+  transition: all 0.3s ease;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.floating-cart-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(255, 159, 28, 0.6);
+  background: #d96810;
+}
+
+.floating-cart-btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.floating-cart-text {
+  white-space: nowrap;
+}
+
+.floating-cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4444;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  
+  animation: cartBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes cartBadgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 600px) {
+  .floating-cart-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  
+  .floating-cart-text {
+    display: none;
+  }
+  
+  .floating-cart-btn {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .floating-cart-badge {
+    top: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}

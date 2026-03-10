@@ -1,0 +1,5 @@
+.Click-span {
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: none;
+}

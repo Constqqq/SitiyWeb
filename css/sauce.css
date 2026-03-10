@@ -1,0 +1,277 @@
+
+
+
+/* ================= МОДАЛКА СОУСА ================= */
+
+.sauce-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.sauce-modal {
+  background: #1b1b1b;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 420px;
+  padding: 18px;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
+  animation: sauceFadeIn 0.2s ease;
+  color: #e0e0e0;
+}
+
+@keyframes sauceFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sauce-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sauce-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #f2f2f2;
+}
+
+.sauce-modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color .15s ease, transform .15s ease;
+}
+
+.sauce-modal-close:hover {
+  color: #ff8c00;
+  transform: scale(1.1);
+}
+
+.sauce-modal-body p {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #bdbdbd;
+}
+
+/* Кнопки соусов */
+.sauce-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sauce-option {
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.sauce-option:hover {
+  background: #ff8c00;
+  border-color: #ff8c00;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.sauce-option:active {
+  transform: scale(0.95);
+}
+
+/* Кнопка "Нет, спасибо" */
+.sauce-skip {
+  width: 100%;
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 0.9rem;
+  transition: background .2s ease, transform .15s ease;
+}
+
+.sauce-skip:hover {
+  background: #3b3b3b;
+  transform: translateY(-2px);
+}
+
+.sauce-skip:active {
+  transform: scale(0.95);
+}
+.cart-notification {
+  position: fixed;
+  top: 100px;
+  right: 24px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(40, 167, 69, 0.4);
+  font-weight: 600;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+}
+
+.cart-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= МОДАЛКА ШАУРМЫ ================= */
+
+.shawerma-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.shawerma-modal {
+  background: #1b1b1b;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 420px;
+  padding: 18px;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
+  animation: shawermaFadeIn 0.2s ease;
+  color: #e0e0e0;
+}
+
+@keyframes shawermaFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.shawerma-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.shawerma-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #f2f2f2;
+}
+
+.shawerma-modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color .15s ease, transform .15s ease;
+}
+
+.shawerma-modal-close:hover {
+  color: #ff8c00;
+  transform: scale(1.1);
+}
+
+.shawerma-modal-body p {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #bdbdbd;
+}
+
+/* Кнопки добавок */
+.shawerma-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.shawerma-option {
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.shawerma-option:hover {
+  background: #ff8c00;
+  border-color: #ff8c00;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.shawerma-option:active {
+  transform: scale(0.95);
+}
+
+/* Кнопка "Нет, спасибо" для шаурмы */
+.shawerma-skip {
+  width: 100%;
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 0.9rem;
+  transition: background .2s ease, transform .15s ease;
+}
+
+.shawerma-skip:hover {
+  background: #3b3b3b;
+  transform: translateY(-2px);
+}
+
+.shawerma-skip:active {
+  transform: scale(0.95);
+}

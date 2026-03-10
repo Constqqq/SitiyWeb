@@ -1,0 +1,121 @@
+/* ================= МОДАЛКА НАПИТКОВ ================= */
+
+.drink-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.drink-modal {
+  background: #1b1b1b;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 420px;
+  padding: 18px;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.25);
+  animation: drinkFadeIn 0.2s ease;
+  color: #e0e0e0;
+}
+
+@keyframes drinkFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.drink-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.drink-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #f2f2f2;
+}
+
+.drink-modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color .15s ease, transform .15s ease;
+}
+
+.drink-modal-close:hover {
+  color: #4CAF50;
+  transform: scale(1.1);
+}
+
+.drink-modal-body p {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #bdbdbd;
+}
+
+/* Кнопки напитков */
+.drink-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.drink-option {
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.drink-option:hover {
+  background: #ff8c00;
+  border-color: #ff8c00;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.drink-option:active {
+  transform: scale(0.95);
+}
+
+/* Кнопка "Нет, спасибо" */
+.drink-skip {
+  width: 100%;
+  background: #2a2a2a;
+  border: 1px solid #3c3c3c;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 0.9rem;
+  transition: background .2s ease, transform .15s ease;
+}
+
+.drink-skip:hover {
+  background: #3b3b3b;
+  transform: translateY(-2px);
+}
+
+.drink-skip:active {
+  transform: scale(0.95);
+}
