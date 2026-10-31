@@ -232,6 +232,15 @@ const MENU_ITEMS = [
     category: "snacks",
     suggestSauce: true,
   },
+   {
+    id: "b47",
+    file: "b47.html",
+    title: "Крылья",
+    img: "images/wings-placeholder.jpg",
+    price: 350,
+    desc: "4 шт.",
+    category: "snacks",
+  },
   {
     id: "b1243",
     file: "b8.html",
@@ -270,6 +279,42 @@ const MENU_ITEMS = [
     category: "dinner",
     video: "videos/video-lunch.MOV",
   },
+   {
+    id: "b100",
+    file: "b100.html",
+    title: "Чебурек c мясом",
+    img: "images/cheburek.jpg",
+    price: 90,
+    variants: [
+      { name: "Свинина", price: 90 },
+      { name: "Курица", price: 90 }
+    ],
+    desc: "Чебурек с мясом. 140г",
+    category: "chebureks",
+  },
+  {
+    id: "b101",
+    file: "b101.html",
+    title: "Чебурек с сыром",
+    img: "images/cheburek.jpg",
+    price: 100,
+    
+    desc: "Чебурек с сыром. 140г",
+    category: "chebureks",
+  },
+  {
+    id: "b102",
+    file: "b102.html",
+    title: "Чебурек ассорти(сыр/мясо)",
+    img: "images/cheburek.jpg",
+    price: 90,
+    variants: [
+      { name: "Свинина", price: 90 },
+      { name: "Курица", price: 90 }
+    ],
+    desc: "Чебурек ассорти(сыр/мясо). 140г",
+    category: "chebureks",
+  },
   {
     id: "b17",
     file: "b18.html",
@@ -295,6 +340,7 @@ const MENU_ITEMS = [
     desc: "Кола или Пепси 0,5 ПЭТ 0,33 ж/б",
     category: "drinks",
   },
+ 
   // {
   //   id: "b10",
   //   file: "b5.html",
@@ -360,6 +406,8 @@ const MENU_ITEMS = [
     desc: "Айран или Тан",
     category: "drinks",
   },
+
+ 
 ];
 
 // ===========================
@@ -890,22 +938,35 @@ function updateFloatingCartBadge() {
 // ===========================
 //     СОБЫТИЯ
 // ===========================
-// Фильтры
+function getInitialCategory() {
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = params.get('cat');
+  const fromHash = window.location.hash.replace('#', '');
+  return fromQuery || fromHash || 'all';
+}
+
+function setCategory(category) {
+  const filters = Array.from(document.querySelectorAll('.menu-filters .filter'));
+  const target = filters.find(btn => btn.dataset.cat === category);
+  const nextCategory = target ? category : 'all';
+
+  filters.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === nextCategory);
+  });
+
+  renderMenu(nextCategory);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.menu-filters .filter').forEach(btn => {
     btn.addEventListener('click', () => {
-
-      document
-        .querySelectorAll('.menu-filters .filter')
-        .forEach(b => b.classList.remove('active'));
-
-      btn.classList.add('active');
-
       const category = btn.dataset.cat;
-      renderMenu(category);
+      setCategory(category);
+      window.location.hash = category;
     });
   });
-document.addEventListener('DOMContentLoaded', () => {
-  renderMenu();
+
+  setCategory(getInitialCategory());
 
   document.body.addEventListener('click', e => {
     if (e.target.classList.contains('btn-add')) {
